@@ -1,0 +1,31 @@
+import time
+from selenium import webdriver # импортируем webdriver
+driver = webdriver.Chrome(executable_path='C:/chromedriver.exe')
+driver.maximize_window() # позволяет открывать бразуер в полном окне, рекомендуется к дальнейшему использованию
+driver.get("https://www.saucedemo.com/") # метод get сообщает браузеру, что нужно открыть сайт по указанной ссылке
+time.sleep(3) # ставим ожидание 3 секунды, чтобы страница успела прогрузиться
+login = driver.find_element_by_name("user-name") # объявляем переменную login, задаём ей значение селектора поля логин
+login.send_keys("standard_user") # команда send_keys("значение") – нужна для ввода информации в поле
+password = driver.find_element_by_name("password") # объявляем переменную password, задаём ей значение селектора поля пароль
+password.send_keys("secret_sauce")
+log = driver.find_element_by_name("login-button")
+log.click()
+time.sleep(3)
+prod1 = driver.find_element_by_name("add-to-cart-sauce-labs-backpack")
+prod1.click()
+time.sleep(1)
+prod2 = driver.find_element_by_name("add-to-cart-sauce-labs-bike-light")
+prod2.click()
+time.sleep(1)
+prod3 = driver.find_element_by_name("add-to-cart-sauce-labs-bolt-t-shirt")
+prod3.click()
+time.sleep(1)
+shlist = driver.find_element_by_css_selector(".shopping_cart_link")
+shlist.click()
+items_count = driver.find_elements_by_css_selector('.cart_item') # находим список всех элементов в корзине
+# проверка что в корзине действительно 3 товара (добавьте в конец теста)
+if len(items_count) == 3: # после 1-го урока можем теперь создать небольшую конструкцию для проверки кол-ва товаров
+    print("В корзине 3 товара") # len здесь посчитает количество элементов, найденных при помощи find_elements
+else:
+    print("Ошибка. Количество товаров в корзине: " + str(len(items_count)))
+driver.quit()
