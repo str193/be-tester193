@@ -1,0 +1,42 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+driver = webdriver.Chrome(executable_path='C:/chromedriver.exe')
+driver.maximize_window()
+driver.get("https://demo.automationtesting.in/Register.html")
+name = driver.find_element_by_css_selector("[placeholder='First Name']")
+name.send_keys('Ivan')
+lname = driver.find_element_by_css_selector("[placeholder='Last Name']")
+lname.send_keys('Str')
+eml = driver.find_element_by_css_selector("[type='email']")
+eml.send_keys('Str@be-tester.ru')
+tel = driver.find_element_by_css_selector("[type='tel']")
+tel.send_keys('9057196666')
+men = driver.find_element_by_css_selector("[value='FeMale']")
+men.click()
+pas1 = driver.find_element_by_css_selector("#firstpassword")
+pas1.send_keys('Betester1')
+pas2 = driver.find_element_by_css_selector("#secondpassword")
+pas2.send_keys('Betester1')
+y = driver.find_element_by_css_selector("#yearbox")
+select = Select(y)
+select.select_by_value("1993")
+m = driver.find_element_by_css_selector("[placeholder='Month']")
+select = Select(m)
+select.select_by_value("December")
+d = driver.find_element_by_css_selector("#daybox")
+select = Select(d)
+select.select_by_value("17")
+file = (r'C:\Users\Str193\Desktop\Ivan S\YQZhyrJfOXk.jpg')
+upload = driver.find_element_by_id("imagesrc")
+upload.send_keys(file)
+driver.execute_script("window.scrollBy(0, 300);")
+# sub = driver.find_element_by_id("submitbtn")
+# sub.click()
+link = driver.current_url
+if link == "https://demo.automationtesting.in/WebTable.html":
+    print("Сейчас Вы находитесь на странице demo.automationtesting.in/WebTable.html")
+else:
+    print("Сейчас Вы находитесь на странице demo.automationtesting.in/Register.html")
+
+driver.quit()
