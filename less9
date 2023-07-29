@@ -1,0 +1,38 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+driver = webdriver.Chrome(executable_path='C:/chromedriver.exe')
+driver.maximize_window()
+driver.get("https://demo.automationtesting.in/WebTable.html")
+time.sleep(5)
+mo = driver.find_element_by_link_text('More')
+mo.click()
+lo = driver.find_element_by_link_text('Loader')
+lo.click()
+
+save_changes_btn1 = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, "button#loader"))
+)
+run1 = driver.find_element_by_css_selector("button#loader")
+run_window_text1 = run1.text
+assert "Run" in run_window_text1
+save_changes_btn1.click()
+
+lorem_text = WebDriverWait(driver, 30).until(
+    EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".modal-body > p"), "Lorem")
+)
+run2 = driver.find_element_by_css_selector(".modal-body > p")
+run_window_text2 = run2.text
+assert "Lorem" in run_window_text2
+
+save_changes_btn2 = WebDriverWait(driver, 20).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, ".modal-footer .btn.btn-primary"))
+)
+run3 = driver.find_element_by_css_selector('.modal-footer .btn.btn-primary')
+run_window_text3 = run3.text
+assert "Save changes" in run_window_text3
+save_changes_btn2.click()
+driver.quit()
