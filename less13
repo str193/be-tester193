@@ -1,0 +1,36 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+driver = webdriver.Chrome(executable_path='C:/chromedriver.exe')
+driver.maximize_window()
+driver.implicitly_wait(5)
+driver.get("https://demo.automationtesting.in/WebTable.html")
+mo = driver.find_element_by_link_text('SwitchTo')
+mo.click()
+lo = driver.find_element_by_link_text('Windows')
+lo.click()
+lod = driver.find_element_by_css_selector("button.btn.btn-info")
+lod.click()
+second_browser_tab1 = driver.window_handles[1]
+driver.switch_to.window(second_browser_tab1)
+driver.close()
+second_browser_tab2 = driver.window_handles[0]
+driver.switch_to.window(second_browser_tab2)
+ko = driver.find_element_by_css_selector('[href="#Multiple"]')
+ko.click()
+lod = driver.find_element_by_css_selector('[onclick="multiwindow()"]')
+lod.click()
+second_browser_tab3 = driver.window_handles[2]
+driver.switch_to.window(second_browser_tab3)
+
+link1 = driver.current_url
+assert "https://demo.automationtesting.in/Index.html" in link1
+pas1 = driver.find_element_by_css_selector("#email")
+pas1.send_keys('Betester1@mail.ru')
+pas2 = driver.find_element_by_css_selector("#enterimg")
+pas2.click()
+link2 = driver.current_url
+assert "https://demo.automationtesting.in/Register.html" in link2
+
+driver.quit()
