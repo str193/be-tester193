@@ -26,6 +26,10 @@ driver.switch_to.window(second_browser_tab3)
 
 link1 = driver.current_url
 assert "https://demo.automationtesting.in/Index.html" in link1
+win = driver.window_handles
+win1 = len(win)
+print(win1)
+assert win1 == 3
 pas1 = driver.find_element_by_css_selector("#email")
 pas1.send_keys('Betester1@mail.ru')
 pas2 = driver.find_element_by_css_selector("#enterimg")
@@ -34,3 +38,4 @@ link2 = driver.current_url
 assert "https://demo.automationtesting.in/Register.html" in link2
 
 driver.quit()
+
